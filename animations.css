@@ -1,0 +1,133 @@
+/* =========================================================
+   animations.css — keyframes & motion utility classes
+   ========================================================= */
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(6,182,212,0.55); }
+  70% { box-shadow: 0 0 0 10px rgba(6,182,212,0); }
+  100% { box-shadow: 0 0 0 0 rgba(6,182,212,0); }
+}
+
+@keyframes blink-caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scroll-wheel {
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  70% { opacity: 0; transform: translate(-50%, 14px); }
+  100% { opacity: 0; transform: translate(-50%, 14px); }
+}
+
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 25px) scale(0.96); }
+}
+.blob-1 { animation: float-blob 16s ease-in-out infinite; }
+.blob-2 { animation: float-blob 20s ease-in-out infinite reverse; }
+.blob-3 { animation: float-blob 14s ease-in-out infinite; }
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.gradient-text { animation: gradient-shift 6s ease infinite; }
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Scroll reveal ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* ---- Hover lift (generic) ---- */
+.hover-lift { transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: var(--shadow-soft); }
+
+/* ---- Card tilt (JS sets rotation via CSS vars) ---- */
+.tilt-card {
+  transform: perspective(1000px)
+    rotateX(var(--tiltX, 4deg))
+    rotateY(var(--tiltY, -6deg));
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+/* ---- Magnetic buttons (JS sets translate via CSS vars) ---- */
+.magnetic {
+  transform: translate(var(--mx, 0), var(--my, 0));
+  transition: transform 0.25s var(--ease-out);
+}
+
+/* ---- Ripple effect ---- */
+.ripple-btn { position: relative; overflow: hidden; }
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  transform: scale(0);
+  animation: ripple-anim 0.6s var(--ease-out);
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  to { transform: scale(3); opacity: 0; }
+}
+
+/* ---- Animated gradient border (used on hover-highlight cards) ---- */
+.glow-border {
+  position: relative;
+  isolation: isolate;
+}
+.glow-border::before {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle, 0deg), var(--primary), var(--secondary), var(--accent), var(--primary));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
+  animation: spin-border 4s linear infinite;
+}
+.glow-border:hover::before { opacity: 1; }
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-border {
+  to { --angle: 360deg; }
+}
+
+/* ---- Image zoom on hover ---- */
+.project-thumb { transition: transform 0.6s var(--ease-out); }
+.project-card:hover .project-thumb { transform: scale(1.06); }
+
+/* ---- Fade-in for hero on load ---- */
+.hero-copy > * { animation: fade-in-up 0.8s var(--ease-out) both; }
+.hero-copy .eyebrow { animation-delay: 0.05s; }
+.hero-copy .hero-title { animation-delay: 0.15s; }
+.hero-copy .hero-sub { animation-delay: 0.25s; }
+.hero-copy .hero-cta { animation-delay: 0.35s; }
+.hero-copy .hero-stats { animation-delay: 0.45s; }
+
+.hero-visual { animation: fade-in-up 1s var(--ease-out) 0.3s both; }
+
+/* ---- FAQ answer open state (max-height controlled inline by JS too) ---- */
+.faq-item.is-open .faq-answer { max-height: 240px; }
