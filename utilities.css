@@ -1,0 +1,56 @@
+/* =========================================================
+   utilities.css — small reusable helper classes
+   ========================================================= */
+
+.text-center { text-align: center; }
+.text-gradient { background: var(--gradient-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+
+.w-full { width: 100%; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.no-scroll { overflow: hidden; }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  border: none;
+  margin-block: var(--space-md);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: rgba(var(--secondary-rgb), 0.15);
+  color: var(--secondary);
+}
+
+.lazy-img { opacity: 0; transition: opacity 0.5s var(--ease-out); }
+.lazy-img.is-loaded { opacity: 1; }
